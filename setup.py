@@ -9,9 +9,9 @@ requires = [
 ]
 
 setup(
-    name="data_utils",
+    name="data-utils",
     version="0.1.0",
-    url="https://github.com/MarletteFunding/DataManagement",
+    url="https://github.com/MarletteFunding/data-utils",
     author="Marlette Data Team",
     author_email="data-team@bestegg.com",
     description="Shared data team utilities.",
