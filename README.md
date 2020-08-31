@@ -18,3 +18,8 @@ for queries and eventually will include more for staging files, etc.
 * Update the changelog with a summary of your changes
 * Push changes to github, open PR, merge to master
 * Create a new release in github, tagging it with the same version number in setup.py
+* Releases can be installed specifically by pip, e.g. 0.1.0:
+  ```
+  pip install git+https://github.com/MarletteFunding/data-utils.git@0.1.0#egg=data-utils
+  ```
+

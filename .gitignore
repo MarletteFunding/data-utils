@@ -142,18 +142,6 @@ cython_debug/
 .idea/
 .idea/*
 
-# Case Center Config
-global_config.yaml
-
-# Large Sample Files
-sample_files/
-
-# Copied .data_utils
-.data_utils/
-
-# Include data utils from cookiecutter template
-!/cookiecutter_docker_job/{{cookiecutter.project_name}}/.data_utils/
-
 node_modules/
 
 .serverless/
