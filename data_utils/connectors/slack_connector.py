@@ -14,6 +14,10 @@ class SlackConnector:
         self.client = WebClient(token=self.settings.get("slack", "api_token"))
 
     def send_slack_alert(self, message: str):
+        if not self.settings.getboolean("slack", "enabled"):
+            logger.info("Trying to send message to Slack but it is not enabled.")
+            return
+
         attachment = {
             "pretext": f"*Alert from `{self.settings.get('DEFAULT', 'app_name')}` Job*",
             "mrkdwn_in": ["text", "pretext"],
