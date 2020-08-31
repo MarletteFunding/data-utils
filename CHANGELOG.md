@@ -1,6 +1,10 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.1] - 08/31/2020
+### Added
+- Added check in Slack connector for slack enabled in .ini file. Must have field "enabled" = "true" under "slack" section to send a message.
+
 ## [0.1.0] - 08/28/2020
 ### Added
 - initial version:
