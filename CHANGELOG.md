@@ -1,6 +1,11 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.2] - 10/16/2020
+### Added
+- Added extract, transform, load functions to Script class. Also wrapped `run` in a try/except with Slack alerting.
+
+
 ## [0.1.1] - 08/31/2020
 ### Added
 - Added check in Slack connector for slack enabled in .ini file. Must have field "enabled" = "true" under "slack" section to send a message.

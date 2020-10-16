@@ -10,7 +10,7 @@ requires = [
 
 setup(
     name="data-utils",
-    version="0.1.1",
+    version="0.1.2",
     url="https://github.com/MarletteFunding/data-utils",
     author="Marlette Data Team",
     author_email="data-team@bestegg.com",
