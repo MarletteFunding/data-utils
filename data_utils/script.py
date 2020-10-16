@@ -2,6 +2,7 @@ import argparse
 import logging.config
 
 from data_utils.settings import Settings
+from data_utils.connectors.slack_connector import SlackConnector
 
 logger = logging.getLogger(__name__)
 
@@ -11,13 +12,18 @@ class Script:
         self.parser = argparse.ArgumentParser()
         self._configure_args()
         self.args = self.parser.parse_args(args or [])
-        self.settings = Settings(self.args.config) if \
-            getattr(self.args, "config", None) else None
+        self.settings = Settings(self.args.config) if getattr(self.args, "config", None) else None
+        self.slack_connector = SlackConnector(self.settings)
 
         logging.config.fileConfig(self.settings, disable_existing_loggers=False)
 
     def __call__(self, *args, **kwargs):
-        return self.run()
+        try:
+            return self.run()
+        except Exception as e:
+            msg = f"Generic error caught running ETL. Update code to catch this further down. {e}"
+            logger.exception(msg)
+            self.slack_connector.send_slack_alert(msg)
 
     def _configure_args(self):
         self.parser.add_argument(
@@ -30,5 +36,18 @@ class Script:
         pass
 
     def run(self):
-        """Override this with the main entrypoint of the script."""
+        self.extract()
+        self.transform()
+        self.load()
+
+    def extract(self):
+        """Override with your code"""
+        pass
+
+    def transform(self):
+        """Override with your code"""
+        pass
+
+    def load(self):
+        """Override with your code"""
         pass
