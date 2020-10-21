@@ -32,14 +32,23 @@ class SnowflakeConnector:
         logger.info(f"Executing query: {querystring}")
         return self.conn.cursor(DictCursor).execute(querystring)
 
-    def stage_file(self, file_path: str, stage_name: str) -> None:
+    def stage_file(self, file_path: str, stage_name: str, table_name: str = None,
+                   file_format: str = None, copy: bool = False) -> None:
         logger.info(f"Staging file {file_path} to stage {stage_name}")
 
         try:
             self.conn.cursor().execute(f"PUT file:///{file_path} @{stage_name}")
-        except Exception as e:  # TODO: detailed exceptions
-            logger.error(f"Error staging file: {e.message}.")
+        except Exception as e:
+            logger.error(f"Error staging file: {e}.")
             raise e
+
+        if copy and table_name:
+            try:
+                self.conn.cursor().execute(f"COPY INTO {table_name} FROM @{stage_name} "
+                                           f"FILES = ('{file_path}') FILE_FORMAT = {file_format}")
+            except Exception as e:
+                logger.error(f"Error copying file: {e}.")
+                raise e
 
     def copy_staged_file(self, stage_name: str, table_name: str) -> None:
         pass
