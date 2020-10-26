@@ -11,15 +11,18 @@ logger = logging.getLogger(__name__)
 class SlackConnector:
     def __init__(self, settings: Settings):
         self.settings = settings
+        self.environment = settings.get("DEFAULT", "environment")
         self.client = WebClient(token=self.settings.get("slack", "api_token"))
 
-    def send_slack_alert(self, message: str):
+    def send_slack_alert(self, message: str, app_name: str = None, job_owner_id: str = None):
         if not self.settings.getboolean("slack", "enabled"):
             logger.info("Trying to send message to Slack but it is not enabled.")
             return
 
+        app_name = app_name or self.settings.get('DEFAULT', 'app_name')
+
         attachment = {
-            "pretext": f"*Alert from `{self.settings.get('DEFAULT', 'app_name')}` Job*",
+            "pretext": f"*Alert from ${self.environment.upper()} `{app_name}` Job*",
             "mrkdwn_in": ["text", "pretext"],
             "color": "danger",
             "text": message
@@ -30,7 +33,7 @@ class SlackConnector:
         self._slack_post_message(channel, [attachment])
 
         # Also send to job owner as a DM if present
-        user_channel = self.settings.get("slack", "job_owner_id")
+        user_channel = job_owner_id or self.settings.get("slack", "job_owner_id")
 
         if user_channel:
             self._slack_post_message(user_channel, [attachment])
