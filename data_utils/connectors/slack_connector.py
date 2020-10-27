@@ -22,7 +22,7 @@ class SlackConnector:
         app_name = app_name or self.settings.get('DEFAULT', 'app_name')
 
         attachment = {
-            "pretext": f"*Alert from ${self.environment.upper()} `{app_name}` Job*",
+            "pretext": f"*Alert from `{self.environment.upper()} {app_name}` Job*",
             "mrkdwn_in": ["text", "pretext"],
             "color": "danger",
             "text": message
