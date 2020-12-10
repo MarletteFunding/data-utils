@@ -4,9 +4,9 @@ from datetime import datetime
 from time import time
 from typing import Dict, Any, List, Tuple
 
-import boto3
 import pymysql.cursors
 
+from data_utils.connectors.s3_connector import S3Connector
 from data_utils.connectors.sftp_connector import SftpConnector
 from data_utils.settings import Settings
 
@@ -15,10 +15,6 @@ logger = logging.getLogger(__name__)
 
 
 class TransferException(Exception):
-    pass
-
-
-class S3UploadError(Exception):
     pass
 
 
@@ -33,7 +29,7 @@ class SftpS3Interface:
                                           db=self.settings.get("mysql", "database"),
                                           charset='utf8mb4',
                                           cursorclass=pymysql.cursors.DictCursor)
-        self.s3_client = boto3.client("s3")
+        self.s3_client = S3Connector()
 
     def get_active_files(self) -> List[Dict[Any, Any]]:
         active_files = []
@@ -95,7 +91,7 @@ class SftpS3Interface:
             self.sftp_conn.get(filename, download_file_path)
 
             if self.settings.getboolean("file_config", "use_s3"):
-                self._upload_to_s3(download_file_path, s3_bucket, s3_key)
+                self.s3_client.upload_file(download_file_path, s3_bucket, s3_key)
         except Exception as e:
             logger.error(f"Error transferring file {filename}: {e}.")
             raise TransferException(e)
@@ -104,18 +100,3 @@ class SftpS3Interface:
         logger.info(f"File transfer took {t2 - t1}")
 
         return download_file_path
-
-    def _upload_to_s3(self, file_name: str, bucket: str, key: str, retry_count: int = 3):
-        """Helper function to upload files to S3 with basic retry logic."""
-        retries = retry_count
-
-        while retries > 0:
-            try:
-                self.s3_client.upload_file(file_name, bucket, key)
-                break
-            except Exception as e:
-                retries -= 1
-                logger.exception(f"Error uploading file {file_name} to s3.")
-
-                if retries == 0:
-                    raise S3UploadError(e)
