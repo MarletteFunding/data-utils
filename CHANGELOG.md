@@ -1,6 +1,13 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.6] - 12/10/2020
+### Added
+- Add S3 connector for upload/download
+- Add PGP decryption
+- Add SFTP - S3 Interface
+- Added fixed-width file tools, including file spec & data type parser
+
 ## [0.1.5] - 10/27/2020
 ### Added
 - Fix Slack environment in message
