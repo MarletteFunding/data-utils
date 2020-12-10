@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 class SftpConnector(pysftp.Connection):
     def __init__(self, settings: Settings, *, vendor: str = None):
-        section = f"{self.vendor}_sftp" if vendor else "sftp"
+        section = f"{vendor}_sftp" if vendor else "sftp"
         key = settings.get(section, "private_key")
         passphrase = settings.get(section, "private_key_passphrase")
         port = settings.get(section, "port", fallback=22)

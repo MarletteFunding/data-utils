@@ -23,7 +23,7 @@ class S3UploadError(Exception):
 
 
 class SftpS3Interface:
-    def __init__(self, vendor: str, settings: Settings):
+    def __init__(self, settings: Settings, vendor: str = None):
         self.vendor = vendor
         self.settings = settings
         self.sftp_conn = SftpConnector(self.settings, vendor=vendor)
