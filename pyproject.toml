@@ -12,6 +12,7 @@ pysftp = "^0.2.9"
 sendgrid = "^6.4.7"
 slackclient = "^2.9.3"
 PyMySQL = "^0.10.1"
+pendulum = "^2.1.2"
 
 [tool.poetry.dev-dependencies]
 
