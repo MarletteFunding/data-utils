@@ -1,6 +1,12 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.7] - 12/10/2020
+### Changed
+- Remove `script` try/except slack alert to eliminate duplicate messages
+- Set default job_owner_id fallback = None
+- Fix SFTP-S3 Interface ini section variable
+
 ## [0.1.6] - 12/10/2020
 ### Added
 - Add S3 connector for upload/download
