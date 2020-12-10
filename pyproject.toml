@@ -11,6 +11,7 @@ python-dotenv = "^0.14.0"
 pysftp = "^0.2.9"
 sendgrid = "^6.4.7"
 slackclient = "^2.9.3"
+PyMySQL = "^0.10.1"
 
 [tool.poetry.dev-dependencies]
 
