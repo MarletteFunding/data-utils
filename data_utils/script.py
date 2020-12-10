@@ -23,7 +23,7 @@ class Script:
         except Exception as e:
             msg = f"Generic error caught running ETL. Update code to catch this further down. {e}"
             logger.exception(msg)
-            self.slack_connector.send_slack_alert(msg)
+            # self.slack_connector.send_slack_alert(msg)
 
     def _configure_args(self):
         self.parser.add_argument(

@@ -33,7 +33,7 @@ class SlackConnector:
         self._slack_post_message(channel, [attachment])
 
         # Also send to job owner as a DM if present
-        user_channel = job_owner_id or self.settings.get("slack", "job_owner_id")
+        user_channel = job_owner_id or self.settings.get("slack", "job_owner_id", fallback=None)
 
         if user_channel:
             self._slack_post_message(user_channel, [attachment])

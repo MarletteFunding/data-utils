@@ -20,7 +20,7 @@ class TransferException(Exception):
 
 class SftpS3Interface:
     def __init__(self, settings: Settings, vendor: str = None):
-        self.vendor = vendor
+        self.section = f"{vendor}_sftp" if vendor else "sftp"
         self.settings = settings
         self.sftp_conn = SftpConnector(self.settings, vendor=vendor)
         self.mysql_conn = pymysql.connect(host=self.settings.get("mysql", "hostname"),
@@ -34,11 +34,11 @@ class SftpS3Interface:
     def get_active_files(self) -> List[Dict[Any, Any]]:
         active_files = []
 
-        self.sftp_conn.chdir(self.settings.get(f"{self.vendor}_sftp", "directory"))
+        self.sftp_conn.chdir(self.settings.get(f"{self.section}", "directory"))
         available_files = self.sftp_conn.listdir_attr()
         file_configs = self.get_file_configs()
-        modified_filter = int(self.settings.get(f"{self.vendor}_sftp", "modified_buffer_minutes"))
-        file_prefix = self.settings.get(f"{self.vendor}_sftp", "file_prefix")
+        modified_filter = int(self.settings.get(f"{self.section}", "modified_buffer_minutes"))
+        file_prefix = self.settings.get(f"{self.section}", "file_prefix")
 
         for file in available_files:
             for config in file_configs:
@@ -80,7 +80,7 @@ class SftpS3Interface:
 
     def transfer_sftp_to_s3(self, filename: str, download_path: str, s3_bucket: str, s3_key: str) -> str:
         """Download file from SFTP server, then upload it to S3."""
-        self.sftp_conn.chdir(self.settings.get(f"{self.vendor}_sftp", "directory"))
+        self.sftp_conn.chdir(self.settings.get(f"{self.section}", "directory"))
 
         t1 = datetime.now()
         logger.info(f"Transfer start time: {t1}")
