@@ -1,6 +1,14 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.8] - 12/11/2020
+### Added
+- PGP encrypt
+- Transfer S3 to SFTP
+- Update README
+- Rename file_utils
+- Rename type_caster
+
 ## [0.1.7] - 12/10/2020
 ### Changed
 - Remove `script` try/except slack alert to eliminate duplicate messages

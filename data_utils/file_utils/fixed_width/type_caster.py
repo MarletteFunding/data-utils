@@ -5,7 +5,7 @@ from typing import Union
 
 import pendulum
 
-from data_utils.file_interfaces.fixed_width.file_spec import FileSpec
+from data_utils.file_utils.fixed_width.file_spec import FileSpec
 
 logger = logging.getLogger(__name__)
 
