@@ -10,7 +10,7 @@ from data_utils.file_interfaces.fixed_width.file_spec import FileSpec
 logger = logging.getLogger(__name__)
 
 
-class DataTypeParser:
+class TypeCaster:
     def __init__(self, file_spec: FileSpec):
         self.spec = file_spec
 
