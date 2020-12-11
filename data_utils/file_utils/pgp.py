@@ -22,7 +22,7 @@ def decrypt_pgp(input_filepath: str, output_filepath: str, private_key: str, pas
 
 
 def encrypt_pgp(input_filepath: str, output_filepath: str, public_key: str) -> str:
-    """Decrypt PGP file using private key and passphrase."""
+    """Encrypt PGP file using public key."""
     gpg = gnupg.GPG()
     key = gpg.import_keys(public_key)
 
