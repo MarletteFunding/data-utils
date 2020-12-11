@@ -78,9 +78,10 @@ class SftpS3Interface:
         logger.info(f"Found the following active files in SFTP: {file_names}")
         return self.convert_to_json(active_files)
 
-    def transfer_sftp_to_s3(self, filename: str, download_path: str, s3_bucket: str, s3_key: str) -> str:
+    def transfer_sftp_to_s3(self, filename: str, download_path: str, s3_bucket: str, s3_key: str,
+                            sftp_directory: str) -> str:
         """Download file from SFTP server, then upload it to S3."""
-        self.sftp_conn.chdir(self.settings.get(f"{self.section}", "directory"))
+        self.sftp_conn.chdir(sftp_directory)
 
         t1 = datetime.now()
         logger.info(f"Transfer start time: {t1}")
@@ -100,3 +101,25 @@ class SftpS3Interface:
         logger.info(f"File transfer took {t2 - t1}")
 
         return download_file_path
+
+    def transfer_s3_to_sftp(self, s3_bucket: str, s3_key: str, file_name: str, sftp_directory: str) -> str:
+        """Download file from S3, then put it on SFTP server"""
+        self.sftp_conn.chdir(sftp_directory)
+
+        t1 = datetime.now()
+        logger.info(f"Transfer start time: {t1}")
+
+        file_path = f"/tmp/{file_name}"
+
+        self.s3_client.download_file(s3_bucket, s3_key, file_path)
+
+        try:
+            self.sftp_conn.put(file_path)
+        except Exception as e:
+            logger.error(f"Error transferring file {file_name}: {e}.")
+            raise TransferException(e)
+
+        t2 = datetime.now()
+        logger.info(f"File transfer took {t2 - t1}")
+
+        return file_name
