@@ -1,6 +1,10 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.9] - 12/15/2020
+### Added
+- SQLAlchemy dependency to support fixed width file spec dtypes
+
 ## [0.1.8] - 12/11/2020
 ### Added
 - PGP encrypt
