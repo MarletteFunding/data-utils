@@ -382,6 +382,14 @@ python-versions = "*"
 cli = ["click (>=5.0)"]
 
 [[package]]
+name = "python-gnupg"
+version = "0.4.6"
+description = "A wrapper for the Gnu Privacy Guard (GPG or GnuPG)"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "python-http-client"
 version = "3.3.1"
 description = "HTTP REST client, simplified for Python"
@@ -577,7 +585,7 @@ typing-extensions = {version = ">=3.7.4", markers = "python_version < \"3.8\""}
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "9b012db9fc923a94edc953bf230925fbf55eb1dd0487142a2848a38f5418915d"
+content-hash = "a1e3bb26a480e3d822850884cb3e0b3dea2823b73d472a019d5119a069fdda05"
 
 [metadata.files]
 aiohttp = [
@@ -895,6 +903,10 @@ python-dateutil = [
 python-dotenv = [
     {file = "python-dotenv-0.14.0.tar.gz", hash = "sha256:8c10c99a1b25d9a68058a1ad6f90381a62ba68230ca93966882a4dbc3bc9c33d"},
     {file = "python_dotenv-0.14.0-py2.py3-none-any.whl", hash = "sha256:c10863aee750ad720f4f43436565e4c1698798d763b63234fb5021b6c616e423"},
+]
+python-gnupg = [
+    {file = "python-gnupg-0.4.6.tar.gz", hash = "sha256:3aa0884b3bd414652c2385b9df39e7b87272c2eca1b8fcc3089bc9e58652019a"},
+    {file = "python_gnupg-0.4.6-py2.py3-none-any.whl", hash = "sha256:cba3566e8a8fb7bb417d6897a6e17bfc7f9371052e57eb0057783c07d762a679"},
 ]
 python-http-client = [
     {file = "python_http_client-3.3.1.tar.gz", hash = "sha256:f5cb0d407b30ed699c2f7ac4ba2ba8a1f2352d44bd9db6ea3bab98d081b433ce"},
