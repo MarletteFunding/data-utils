@@ -1,6 +1,10 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.11] - 12/16/2020
+### Added
+- Struct fmt string to file spec
+
 ## [0.1.10] - 12/15/2020
 ### Added
 - GNUPG Dep
