@@ -48,6 +48,7 @@ class FileSpec:
         self.nest_json_fields = file_config.get("nest_json_fields", {})
         self.layout = defaultdict(list)
         self.dtypes = {"DETAIL_RECORD_NUMBER": NUMERIC(11, 0)}
+        self.struct_fmt_str = ""
 
         self._generate_layout()
 
@@ -89,6 +90,9 @@ class FileSpec:
                 if name in self.cast_fields:
                     data_type = self.cast_fields[name]["data_type"]
                     pic_clause = self.cast_fields[name]["pic_clause"]
+
+                # Add struct unpack str
+                self.struct_fmt_str += f"{length}s"
 
                 # Add tuple to layout for use in parsing
                 self.layout[key].append((name, data_type, start, end, length, logic, pic_clause))
