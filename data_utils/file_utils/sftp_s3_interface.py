@@ -22,13 +22,17 @@ class SftpS3Interface:
     def __init__(self, settings: Settings, vendor: str = None):
         self.section = f"{vendor}_sftp" if vendor else "sftp"
         self.settings = settings
-        self.sftp_conn = SftpConnector(self.settings, vendor=vendor)
+        logger.info("Connecting to mysql...")
         self.mysql_conn = pymysql.connect(host=self.settings.get("mysql", "hostname"),
                                           user=self.settings.get("mysql", "username"),
                                           password=self.settings.get("mysql", "password"),
                                           db=self.settings.get("mysql", "database"),
                                           charset='utf8mb4',
                                           cursorclass=pymysql.cursors.DictCursor)
+        logger.info("Connected to mysql successfully")
+        logger.info("Connecting to SFTP...")
+        self.sftp_conn = SftpConnector(self.settings, vendor=vendor)
+        logger.info("Connected to sftp successfully")
         self.s3_client = S3Connector()
 
     def get_active_files(self) -> List[Dict[Any, Any]]:
