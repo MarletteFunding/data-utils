@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "data-utils"
-version = "0.1.12"
+version = "0.1.13"
 description = ""
 authors = ["Ryan Whitten <ryan.whitten@bestegg.com>"]
 
