@@ -1,5 +1,6 @@
 import logging
 import re
+from array import array
 from datetime import datetime
 from typing import Union
 
@@ -160,3 +161,25 @@ class TypeCaster:
         else:
             last_day = pendulum.parse(str(exp)).end_of("month")
             return last_day.strftime('%Y-%m-%d')
+
+    @staticmethod
+    def unpack_number(number):
+        """ Unpack a COMP-3 number. """
+        a = array('B', number)
+        v = float(0)
+
+        # For all but last digit (half byte)
+        for i in a[:-1]:
+            v = (v * 100) + (((i & 0xf0) >> 4) * 10) + (i & 0xf)
+
+        # Last digit
+        i = a[-1]
+        v = (v * 10) + ((i & 0xf0) >> 4)
+
+        # Negative/Positve check.
+        if (i & 0xf) == 0xd:
+            v = -v
+
+        # Decimal points are determined by a COBOL program's PICtrue clauses, not
+        # the data on disk.
+        return int(v)

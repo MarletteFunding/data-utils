@@ -18,12 +18,7 @@ class Script:
         logging.config.fileConfig(self.settings, disable_existing_loggers=False)
 
     def __call__(self, *args, **kwargs):
-        try:
-            return self.run()
-        except Exception as e:
-            msg = f"Generic error caught running ETL. Update code to catch this further down. {e}"
-            logger.exception(msg)
-            # self.slack_connector.send_slack_alert(msg)
+        return self.run()
 
     def _configure_args(self):
         self.parser.add_argument(

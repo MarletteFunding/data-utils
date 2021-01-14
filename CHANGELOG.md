@@ -1,6 +1,10 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.14] - 01/14/2021
+### Changed
+- Removed try/except from Script.run since it is redundant when using Step Functions.
+
 ## [0.1.13] - 01/11/2021
 ### Changed
 - Removed TSYS-specific code from sftp_s3_interface, put into application logic instead.
