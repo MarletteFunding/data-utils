@@ -88,8 +88,10 @@ class FileSpec:
 
                 # Fields can be cast to different types by defining in yaml file "cast_fields" item.
                 if name in self.cast_fields:
-                    data_type = self.cast_fields[name]["data_type"]
-                    pic_clause = self.cast_fields[name]["pic_clause"]
+                    overrides = self.cast_fields[name]
+                    data_type = overrides.get("data_type", data_type)
+                    pic_clause = overrides.get("pic_clause", pic_clause)
+                    length = overrides.get("length", length)
 
                 # Add struct unpack str
                 self.struct_fmt_str[key] += f"{length}s"
@@ -145,6 +147,15 @@ class FileSpec:
     @staticmethod
     def _sqlalchemy_type(data_type: str, length: int, pic_clause: str):
         """Returns SQLAlchemy column type based on provided data_type, length, and pic_clause."""
+        if "C" in pic_clause:
+            # Packed numbers take up more space unpacked, so use the pic clause length instead.
+            match = re.findall(r'\((.*?) *\)', pic_clause)
+            if len(match) == 1:
+                try:
+                    length = int(match[0])
+                except:
+                    logger.error(f"Could not extract packed field pic clause length: {pic_clause}")
+
         if data_type == "N" and "." not in pic_clause and "V" not in pic_clause:
             return NUMERIC(length, 0)
         elif data_type == "N" and ("." in pic_clause or "V" in pic_clause):

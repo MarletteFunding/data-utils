@@ -1,6 +1,12 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.15] - 01/29/2021
+### Changed
+- Add SqlAlchemy dtype support for packed numeric fields.
+- Simplify time casting to use left 6 digits.
+- Cast date values less than 3 characters in length to None.
+
 ## [0.1.14] - 01/14/2021
 ### Changed
 - Removed try/except from Script.run since it is redundant when using Step Functions.

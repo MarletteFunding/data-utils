@@ -109,6 +109,9 @@ class TypeCaster:
                         f"{field_name} value with type D cannot be converted to date: {value}")
                     value = None
                     return value
+        elif len(value) < 3:
+            logger.info(f"{field_name} value with type D cannot be converted to date: {value}")
+            value = None
 
         return value
 
@@ -125,13 +128,7 @@ class TypeCaster:
 
     @staticmethod
     def _parse_time_field(value: str) -> str:
-        """Parse 6 or 7 char time strings. 7 char times end in 0, which we strip to parse."""
-        if len(value) not in {6, 7}:
-            return value
-
-        if len(value) == 7 and value.endswith("0"):
-            value = value[:-1]
-
+        """Parse string to time formatted string. Strips off any precision after length of 6."""
         try:
             return f"{value[:2]}:{value[2:4]}:{value[4:6]}"
         except IndexError:
