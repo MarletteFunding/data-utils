@@ -1,6 +1,10 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.17] - 02/02/2021
+### Changed
+- Changed all type_caster error log message types to DEBUG level.
+
 ## [0.1.16] - 02/02/2021
 ### Changed
 - Changed type_caster date error log messages to DEBUG level.

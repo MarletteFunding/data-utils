@@ -21,7 +21,7 @@ class TypeCaster:
             try:
                 value = int(value.replace("{", ""))
             except ValueError:
-                logger.info(f"{field_name} value with type N cannot be cast to int: {value}")
+                logger.debug(f"{field_name} value with type N cannot be cast to int: {value}")
         elif data_type == "N" and ("." in pic_clause or "V" in pic_clause):
             value = self._parse_decimal_field(value, field_name, pic_clause)
         elif data_type == "D":
@@ -45,7 +45,7 @@ class TypeCaster:
             else:
                 value = float(f"{value[:int(parts[0])]}.{value[int(parts[0]):]}")
         except ValueError:
-            logger.info(
+            logger.debug(
                 f"{field_name} value with type N and decimal pic cannot be cast to float: {value}")
 
         return value
