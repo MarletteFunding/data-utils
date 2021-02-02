@@ -56,13 +56,13 @@ class TypeCaster:
             try:
                 value = self._parse_date_string(value)
             except ValueError:
-                logger.info(f"{field_name} value with type D cannot be converted to date: {value}")
+                logger.debug(f"{field_name} value with type D cannot be converted to date: {value}")
                 value = None
         elif len(value) == 7:  # e.g. 2020153 julian date
             try:
                 value = datetime.strptime(value, '%Y%j').date().strftime('%Y-%m-%d')
             except ValueError:
-                logger.info(f"{field_name} value with type D cannot be converted to date: {value}")
+                logger.debug(f"{field_name} value with type D cannot be converted to date: {value}")
                 value = None
         elif len(value) == 6 or len(value) == 5:  # e.g. 082023
             try:
@@ -70,7 +70,7 @@ class TypeCaster:
                     field_name in self.spec.cast_fields else None
                 value = self._parse_expiration_date(value, date_format)
             except ValueError:
-                logger.info(f"{field_name} value with type D cannot be converted to date: {value}")
+                logger.debug(f"{field_name} value with type D cannot be converted to date: {value}")
                 value = None
         elif len(value) == 4:  # e.g. 0153 last digit of year + julian day
             date_format = self.spec.cast_fields[field_name].get("date_format") if \
@@ -81,7 +81,7 @@ class TypeCaster:
                     exp_date = datetime.strptime(value, date_format)
                     return self._parse_expiration_date(exp_date.strftime("%m%Y"))
                 except ValueError:
-                    logger.info(f"{field_name} value with type D cannot be converted to date: {value}")
+                    logger.debug(f"{field_name} value with type D cannot be converted to date: {value}")
                     value = None
                     return value
 
@@ -92,7 +92,7 @@ class TypeCaster:
                 full_julian_date = year_prefix + year_last_digit + julian_date
                 value = datetime.strptime(full_julian_date, '%Y%j').date().strftime('%Y-%m-%d')
             except ValueError:
-                logger.info(f"{field_name} value with type D cannot be converted to date: {value}")
+                logger.debug(f"{field_name} value with type D cannot be converted to date: {value}")
                 value = None
         elif len(value) == 3 and pic_clause == "9(6)":
             # Special case where dates are listed as 9(6), are really YYMM, but arrive as 3 digits: 923 instead of 0923
@@ -105,12 +105,11 @@ class TypeCaster:
                 try:
                     return self._parse_expiration_date(exp_date.strftime("%m%Y"))
                 except ValueError:
-                    logger.info(
+                    logger.debug(
                         f"{field_name} value with type D cannot be converted to date: {value}")
                     value = None
-                    return value
         elif len(value) < 3:
-            logger.info(f"{field_name} value with type D cannot be converted to date: {value}")
+            logger.debug(f"{field_name} value with type D cannot be converted to date: {value}")
             value = None
 
         return value
