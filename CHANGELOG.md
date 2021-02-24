@@ -1,6 +1,10 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.18] - 02/24/2021
+### Changed
+- Cast null characters in TypeCaster to empty string.
+
 ## [0.1.17] - 02/02/2021
 ### Changed
 - Changed all type_caster error log message types to DEBUG level.

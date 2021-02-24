@@ -28,6 +28,8 @@ class TypeCaster:
             value = self._parse_date_field(value, field_name, pic_clause)
         elif data_type == "T":
             value = self._parse_time_field(value)
+        elif isinstance(value, str):
+            value = value.replace("\u0000", "")  # Replace null characters
 
         # Cast empty strings to null
         value = None if value == "" else value
