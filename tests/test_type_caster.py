@@ -32,23 +32,20 @@ def test_integer_val_parse_decimal_field():
 
 def test_parse_time_field():
     """string should be sliced to time format hh:mm:ss"""
-    parse_time_field: str = lambda x: TypeCaster._parse_time_field(value=x)
-    assert parse_time_field("hhmmss") == "hh:mm:ss"
-    assert parse_time_field("235000") == "23:50:00"
+    assert TypeCaster._parse_time_field("hhmmss") == "hh:mm:ss"
+    assert TypeCaster._parse_time_field("235000") == "23:50:00"
 
 
 def test_parse_date_string():
     """date time stings should be converted to date formats"""
-    parse_date_string: str = lambda x: TypeCaster._parse_date_string(date=x)
-    assert parse_date_string('03/28/21') == '2021-03-28'
-    assert parse_date_string('20210328') == '2021-03-28'
-    assert parse_date_string('03282021') == '2021-03-28'
-    assert parse_date_string('00010101') == '0001-01-01'
+    assert TypeCaster._parse_date_string('03/28/21') == '2021-03-28'
+    assert TypeCaster._parse_date_string('20210328') == '2021-03-28'
+    assert TypeCaster._parse_date_string('03282021') == '2021-03-28'
+    assert TypeCaster._parse_date_string('00010101') == '0001-01-01'
 
 
 def test_parse_expiration_date():
     """func should return date string with last date of month from input date string if date format is not mentioned"""
-    parse_exp_date: (str, str) = lambda x, y=None: TypeCaster._parse_expiration_date(date=x, date_format=y)
-    assert parse_exp_date('21-03-01', '%y-%m-%d') == '2021-03-01'
-    assert parse_exp_date('03/21') == '2021-03-31'
-    assert parse_exp_date('032021') == '2021-03-31'
+    assert TypeCaster._parse_expiration_date('21-03-01', '%y-%m-%d') == '2021-03-01'
+    assert TypeCaster._parse_expiration_date('03/21') == '2021-03-31'
+    assert TypeCaster._parse_expiration_date('032021') == '2021-03-31'
