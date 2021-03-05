@@ -44,6 +44,8 @@ class TypeCaster:
             value = value.replace("{", "")
             if "." in value:
                 value = float(value)
+            elif value.startswith(('-', '+')):
+                value = float(f"{value[0]}{value[1:int(parts[0]) + 1]}.{value[int(parts[0]) + 1:]}")
             else:
                 value = float(f"{value[:int(parts[0])]}.{value[int(parts[0]):]}")
         except ValueError:
