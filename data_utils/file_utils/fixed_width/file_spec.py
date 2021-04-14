@@ -31,17 +31,7 @@ class FileSpec:
         self.settings = settings
         self.s3_conn = S3Connector()
         self.layout_filename = file_config.get("layout_name")
-        self.format = FileFormatEnum(file_config.get("format"))
-        self.encoding = FORMAT_ENCODING_MAP.get(self.format)
-        self.record_length = file_config.get("record_length")
-        self.parse_by_length = file_config.get("parse_by_length")
-        self.record_type_field_pos = (file_config.get("record_type_start_pos"),
-                                      file_config.get("record_type_end_pos"))
         self.record_type_field_name = file_config.get("record_type_field_name") or "Record Type"
-        self.header_trailer_start_pos = file_config.get("header_trailer_start_pos")
-        self.header_trailer_end_pos = file_config.get("header_trailer_end_pos")
-        self.trailer_start_pos = file_config.get("trailer_start_pos", self.header_trailer_start_pos)
-        self.trailer_end_pos = file_config.get("trailer_end_pos", self.header_trailer_end_pos)
         self.cast_fields = file_config.get("cast_fields", {})
         self.sequence_fields = file_config.get("sequence_fields", {})
         self.nested_field_name = file_config.get("nested_field_name")
@@ -88,10 +78,8 @@ class FileSpec:
 
                 # Fields can be cast to different types by defining in yaml file "cast_fields" item.
                 if name in self.cast_fields:
-                    overrides = self.cast_fields[name]
-                    data_type = overrides.get("data_type", data_type)
-                    pic_clause = overrides.get("pic_clause", pic_clause)
-                    length = overrides.get("length", length)
+                    data_type = self.cast_fields[name]["data_type"]
+                    pic_clause = self.cast_fields[name]["pic_clause"]
 
                 # Add struct unpack str
                 self.struct_fmt_str[key] += f"{length}s"

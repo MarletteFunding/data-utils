@@ -112,7 +112,7 @@ class TypeCaster:
                     logger.debug(
                         f"{field_name} value with type D cannot be converted to date: {value}")
                     value = None
-        elif len(value) < 3:
+        elif len(value) <= 3:
             logger.debug(f"{field_name} value with type D cannot be converted to date: {value}")
             value = None
 
