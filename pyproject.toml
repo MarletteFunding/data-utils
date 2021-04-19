@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "data-utils"
-version = "0.1.19"
+version = "0.1.20"
 description = ""
 authors = ["Ryan Whitten <ryan.whitten@bestegg.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
 snowflake-connector-python = "^2.3.3"
-python-dotenv = "^0.14.0"
+python-dotenv = "^0.15.0"
 pysftp = "^0.2.9"
 sendgrid = "^6.4.7"
 slackclient = "^2.9.3"

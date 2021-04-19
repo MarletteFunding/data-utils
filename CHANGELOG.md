@@ -1,6 +1,10 @@
 # Change Log
 All noteworthy changes to this library will be documented here. This project uses [Semantic Versioning](http://semver.org/)
 
+## [0.1.20] - 04/19/2021
+### Changed
+- Update dotenv to be compatible with Omelette project.
+
 ## [0.1.19] - 04/14/2021
 ### Changed
 - Slim down FileSpec as it gets phased out in favor of embedded Parser in card-inbound-pipe.
