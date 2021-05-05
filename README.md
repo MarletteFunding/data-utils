@@ -1,4 +1,10 @@
 # Data Utils
+
+## Deprecation Notice
+This project is no longer actively developed beyond patches for existing functionality. If you are starting a new project,
+strongly consider using [Omelette](https://github.com/MarletteFunding/omelette) instead, which is a direct evolution of 
+data-utils, and in the author's opinion offers a much better experience. 
+
 #### Python library for managing shared code
 
 This library includes some useful modules that save time from writing common boilerplate.
