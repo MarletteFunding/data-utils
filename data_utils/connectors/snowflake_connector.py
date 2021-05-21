@@ -19,6 +19,7 @@ class SnowflakeConnector:
             database=settings.get("snowflake", "database"),
             role=settings.get("snowflake", "role"),
             schema=settings.get("snowflake", "schema"),
+            client_session_keep_alive=settings.getboolean("snowflake", "keep_alive", fallback=False)
         )
 
     def __exit__(self, exc_type, exc_val, exc_tb):
